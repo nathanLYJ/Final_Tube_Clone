@@ -2,7 +2,7 @@
 {% block content %}
 <section class="detail-container m-6 space-y-4">
     <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
-        <form action="" method="post">
+        <form action="" method="post"enctype="multipart/form-data">
             {% csrf_token %}
             <table class="w-full mb-4">
                 {{ form.as_table }}

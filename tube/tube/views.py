@@ -35,15 +35,15 @@ def tube_detail(request, pk):
 @login_required
 def tube_create(request):
     if request.method == "GET":
-        form = PostForm()
-        return render(request, "tube/tube_create.html", {"form": form})
+        form = PostForm() 
+        return render(request, "tube/tube_create.html", {"form": form}) 
     else:
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save()
+        form = PostForm(request.POST, request.FILES) 
+        if form.is_valid(): 
+            post = form.save() 
             return redirect("tube_list")
         else:
-            form = PostForm()
+            print(form.errors)
             return render(request, "tube/tube_create.html", {"form": form})
     
 @login_required
