@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="detail-container m-6 space-y-4">
+    <div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-4">개인 프로필 페이지</h1>
+        
+        <div class="space-y-2">
+            <p><span class="font-semibold">사용자 이름:</span> {{ user.username }}</p>
+            <p><span class="font-semibold">이메일:</span> {{ user.email }}</p>
+            <p><span class="font-semibold">이름:</span> {{ user.first_name }} {{ user.last_name }}</p>
+            <p><span class="font-semibold">직원 여부:</span> {{ user.is_staff }}</p>
+            <p><span class="font-semibold">계정 활성화 여부:</span> {{ user.is_active }}</p>
+            <p><span class="font-semibold">슈퍼유저 여부:</span> {{ user.is_superuser }}</p>
+            <p><span class="font-semibold">마지막 로그인:</span> {{ user.last_login }}</p>
+            <p><span class="font-semibold">가입 일자:</span> {{ user.date_joined }}</p>
+        </div>
+
+        <form action="{% url 'user_logout' %}" method="post" class="mt-6">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="py-2 px-4 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                로그아웃
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+

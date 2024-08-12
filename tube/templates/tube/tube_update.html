@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto p-6 bg-white shadow-md rounded-lg">
+    <form action="" method="post">
+        {% csrf_token %}
+        <table class="w-full mb-4">
+            {{ form.as_table }}
+        </table>
+        <button type="submit" 
+                class="w-full py-2 px-4 bg-indigo-600 text-white rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            제출
+        </button>
+    </form>
+</div>
+{% endblock %}
