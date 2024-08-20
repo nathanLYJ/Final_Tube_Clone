@@ -3,15 +3,25 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)  # 최대 길이 100
     content = models.TextField()
-    thumbnail_image = models.ImageField(upload_to="blog/images/%Y/%m/%d/", blank=True)
-    video_file = models.FileField(upload_to="blog/files/%Y/%m/%d/", blank=True)
-    view_count = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    tags = models.ManyToManyField("Tag", blank=True)
+    thumbnail_image = models.ImageField(
+        upload_to="blog/images/%Y/%m/%d/", blank=True
+    )  # blank=True: 필수가 아님
+    video_file = models.FileField(
+        upload_to="blog/files/%Y/%m/%d/", blank=True
+    )  # blank=True: 필수가 아님
+    view_count = models.IntegerField(default=0)  # 조회수
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )  # auto_now_add=True: 생성 시간이 자동으로 업데이트됨
+    updated_at = models.DateField(
+        auto_now=True
+    )  # auto_now=True: 수정 시간이 자동으로 업데이트됨
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )  # User, on_delete=models.CASCADE user가 삭제(on_delete)되면 post도 삭제(CASCADE)
+    tags = models.ManyToManyField("Tag", blank=True)  # Tag, blank=True 태그는 없어도 됨
 
     def __str__(self):
         return self.title
@@ -21,8 +31,12 @@ class Comment(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="comments"
+    )  # Post, on_delete=models.CASCADE post가 삭제(on_delete)되면 comment도 삭제(CASCADE)
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )  # User, on_delete=models.CASCADE user가 삭제(on_delete)되면 comment도 삭제(CASCADE)
 
     def __str__(self):
         return self.message
@@ -33,7 +47,8 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Subscription(models.Model):
     subscriber = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="subscriptions"
