@@ -1,11 +1,40 @@
+# FBV
+
+# from django import forms
+# from .models import Post
+
+# class PostForm(forms.ModelForm):
+#     class Meta:
+#         model = Post
+#         fields = "__all__"
+
+# class CommentForm(forms.Form):
+#     message = forms.CharField(widget=forms.Textarea)
+
+# CBV
 from django import forms
-from .models import Post
+from .models import Post, Comment, Tag
+
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = "__all__"
+        # fields = '__all__'
+        fields = [
+            "title",
+            "content",
+            "thumb_image",
+            "file_upload",
+        ]  # counter같은 값은 건들면 안되니까!
 
-class CommentForm(forms.Form):
-    message = forms.CharField(widget=forms.Textarea)
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["message"]
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["name"]
